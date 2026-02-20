@@ -8,7 +8,6 @@ import Projects from './components/Projects/Projects';
 import Life from './components/Life/Life';
 import ExperienceEducationTimeline from './components/ExperienceEducationTimeline';
 import CursorFollower from './components/shared/CursorFollower/CursorFollower';
-import { SkillFilterProvider } from './context/SkillFilterContext';
 
 const SECTION_IDS = ['home', 'about', 'timeline', 'projects', 'skills', 'contact'];
 
@@ -79,32 +78,30 @@ function App() {
   }, []);
 
   return (
-    <SkillFilterProvider>
-      <div className="relative min-h-screen w-full">
-        <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
-        <CursorFollower />
-        <div className="relative z-20">
-          <section id="home" className="min-h-screen">
-            <Hero onExplore={scrollToSection} />
-          </section>
-          <section id="about" className="min-h-screen">
-            <About />
-          </section>
-          <section id="timeline" className="min-h-screen">
-            <ExperienceEducationTimeline />
-          </section>
-          <section id="projects" className="min-h-screen">
-            <Projects onExplore={scrollToSection} />
-          </section>
-          <section id="skills" className="min-h-screen">
-            <Skills onExplore={scrollToSection} />
-          </section>
-          <section id="contact" className="min-h-[72vh]">
-            <Life />
-          </section>
-        </div>
+    <div className="relative min-h-screen w-full">
+      <Navbar activeSection={activeSection} onNavigate={scrollToSection} />
+      <CursorFollower />
+      <div className="relative z-20">
+        <section id="home" className="min-h-screen">
+          <Hero onExplore={scrollToSection} />
+        </section>
+        <section id="about" className="min-h-screen">
+          <About />
+        </section>
+        <section id="timeline" className="min-h-screen">
+          <ExperienceEducationTimeline />
+        </section>
+        <section id="projects" className="min-h-screen">
+          <Projects onExplore={scrollToSection} />
+        </section>
+        <section id="skills" className="min-h-screen">
+          <Skills onExplore={scrollToSection} />
+        </section>
+        <section id="contact" className="min-h-[72vh]">
+          <Life />
+        </section>
       </div>
-    </SkillFilterProvider>
+    </div>
   );
 }
 

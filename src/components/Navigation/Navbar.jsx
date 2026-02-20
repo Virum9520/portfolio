@@ -8,7 +8,7 @@ export default function Navbar({ activeSection, onNavigate }) {
   const currentId = useMemo(() => activeSection || 'home', [activeSection]);
 
   const onItemClick = (id) => {
-    onNavigate(id, { instant: true });
+    onNavigate(id, { fast: true });
     setIsOpen(false);
   };
 

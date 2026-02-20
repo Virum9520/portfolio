@@ -25,16 +25,4 @@ export const skillsConfig = {
       skills: ['AWS', 'Docker', 'Git', 'FastAPI', 'BS4', 'OpenAI API', 'AI Agents', 'CrewAI'],
     },
   ],
-  certifications: [
-    {
-      id: 'cert-1',
-      name: 'AWS Cloud Foundations',
-      accent: '#c084fc',
-    },
-    {
-      id: 'cert-2',
-      name: 'AWS Data Engineering',
-      accent: '#c084fc',
-    },
-  ],
 };

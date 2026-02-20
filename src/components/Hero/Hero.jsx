@@ -44,18 +44,11 @@ export default function Hero({ onExplore }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Restart animation when Hero comes back into view
   useEffect(() => {
     if (heroInView && !wasInViewRef.current && splineRef.current && loaded) {
-      // Hero just came back into view - restart animations
       try {
         const spline = splineRef.current;
-        
-        // Method 1: Trigger a custom event that restarts the animation
-        // You may need to adjust this based on your Spline scene's event names
-        spline.emitEvent('start', 'Camera 2'); // Common event name
-        
-but 
+        spline.emitEvent('start', 'Camera 2');
       } catch (error) {
         console.warn('Could not restart Spline animation:', error);
       }
@@ -70,13 +63,12 @@ but
           Loading 3D Scene...
         </div>
       )}
-      {/* Keep Spline mounted - use opacity/visibility instead of conditional rendering */}
-      <div 
-        className="absolute inset-0 z-0 transition-opacity duration-700" 
-        style={{ 
+      <div
+        className="absolute inset-0 z-0 transition-opacity duration-700"
+        style={{
           opacity: scrollOpacity > 0 && loaded ? scrollOpacity : 0,
           visibility: scrollOpacity > 0 ? 'visible' : 'hidden',
-          pointerEvents: scrollOpacity > 0 ? 'auto' : 'none'
+          pointerEvents: scrollOpacity > 0 ? 'auto' : 'none',
         }}
       >
         <Spline
