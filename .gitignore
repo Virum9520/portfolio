@@ -18,6 +18,7 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+/.cursor/
 
 # logs
 *.log
@@ -45,6 +46,7 @@ lerna-debug.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
 
 # Vite
 .vite/
@@ -94,3 +96,4 @@ out
 # Temporary folders
 tmp/
 temp/
+.cursor/mcp.json
