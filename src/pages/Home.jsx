@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { site, experience, publications, education, skills } from '../data/site';
+import { site, education, skills } from '../data/site';
+import { experience } from '../data/experience';
+import { publications } from '../data/publications';
 import { projects, moreProjects } from '../data/projects';
 
 function SectionHeading({ id, children }) {
@@ -8,6 +10,21 @@ function SectionHeading({ id, children }) {
     <h2 id={id} className="section-label scroll-mt-20 pb-5">
       {children}
     </h2>
+  );
+}
+
+function OverviewRow({ to, title, meta, blurb }) {
+  return (
+    <Link to={to} className="group -mx-3 block rounded-md px-3 py-3 transition-colors hover:bg-[#f1efe9]">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+        <h3 className="text-[0.98rem] font-semibold group-hover:text-accent">{title}</h3>
+        {meta && <span className="font-mono text-[0.72rem] text-ink-faint">{meta}</span>}
+      </div>
+      <p className="mt-1 text-[0.9rem] text-ink-soft">{blurb}</p>
+      <p className="mt-1.5 text-[0.8rem] text-accent opacity-70 transition-opacity group-hover:opacity-100">
+        Read more →
+      </p>
+    </Link>
   );
 }
 
@@ -29,9 +46,7 @@ function Home() {
         <h1 className="font-serif text-[2.1rem] font-medium leading-tight tracking-tight sm:text-[2.5rem]">
           {site.name}
         </h1>
-        <p className="mt-2 font-mono text-[0.8rem] tracking-wide text-accent">
-          {site.headline}
-        </p>
+        <p className="mt-2 font-mono text-[0.8rem] tracking-wide text-accent">{site.headline}</p>
         <p className="mt-5 max-w-[36rem] text-ink-soft">{site.intro}</p>
         <p className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-[0.85rem]">
           <a href={`mailto:${site.email}`} className="prose-link">
@@ -50,114 +65,71 @@ function Home() {
         </p>
       </section>
 
-      {/* Experience */}
-      <section className="border-t border-rule py-12">
+      {/* Experience overview */}
+      <section className="border-t border-rule py-10">
         <SectionHeading id="experience">Experience</SectionHeading>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-1">
           {experience.map((job) => (
-            <article key={job.id}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                <h3 className="text-[1rem] font-semibold">
-                  {job.role} · {job.company}
-                </h3>
-                <span className="font-mono text-[0.72rem] text-ink-faint">{job.dates}</span>
-              </div>
-              <p className="mt-2 text-ink-soft">{job.summary}</p>
-              <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 text-[0.9rem] text-ink-soft marker:text-ink-faint">
-                {job.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-              <p className="mt-2.5 font-mono text-[0.7rem] text-ink-faint">
-                {job.tags.join(' · ')}
-              </p>
-            </article>
+            <OverviewRow
+              key={job.id}
+              to={`/experience/${job.id}`}
+              title={`${job.role} · ${job.company}`}
+              meta={job.dates}
+              blurb={job.oneLiner}
+            />
           ))}
         </div>
       </section>
 
-      {/* Publications */}
-      <section className="border-t border-rule py-12">
+      {/* Publications overview */}
+      <section className="border-t border-rule py-10">
         <SectionHeading id="publications">Publications</SectionHeading>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-1">
           {publications.map((pub) => (
-            <article key={pub.id}>
-              <h3 className="font-serif text-[1.05rem] font-medium leading-snug">
-                <a href={pub.link} target="_blank" rel="noreferrer" className="hover:text-accent">
-                  {pub.title}
-                </a>
-              </h3>
-              <p className="mt-1 text-[0.85rem] text-ink-faint">
-                {pub.authors} — {pub.venue}
-              </p>
-              <p className="mt-1.5 text-[0.9rem] text-ink-soft">{pub.note}</p>
-              <a
-                href={pub.link}
-                target="_blank"
-                rel="noreferrer"
-                className="prose-link mt-1 inline-block font-mono text-[0.72rem]"
-              >
-                {pub.linkLabel}
-              </a>
-            </article>
+            <OverviewRow
+              key={pub.id}
+              to={`/publications/${pub.id}`}
+              title={pub.title}
+              meta={pub.venueShort}
+              blurb={pub.oneLiner}
+            />
           ))}
         </div>
       </section>
 
-      {/* Projects */}
-      <section className="border-t border-rule py-12">
+      {/* Projects overview */}
+      <section className="border-t border-rule py-10">
         <SectionHeading id="projects">Projects</SectionHeading>
-        <div className="flex flex-col gap-9">
+        <div className="flex flex-col gap-1">
           {projects.map((p) => (
-            <article key={p.slug}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                <h3 className="text-[1rem] font-semibold">
-                  <Link to={`/projects/${p.slug}`} className="hover:text-accent">
-                    {p.title}
-                  </Link>
-                </h3>
-                <span className="font-mono text-[0.72rem] text-ink-faint">{p.year}</span>
-              </div>
-              <p className="mt-1.5 text-[0.92rem] text-ink-soft">{p.oneLiner}</p>
-              <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[0.82rem]">
-                <Link to={`/projects/${p.slug}`} className="prose-link">
-                  Read more
-                </Link>
-                {p.github && (
-                  <a href={p.github} target="_blank" rel="noreferrer" className="prose-link">
-                    GitHub
-                  </a>
-                )}
-                {p.live && (
-                  <a href={p.live} target="_blank" rel="noreferrer" className="prose-link">
-                    Live demo
-                  </a>
-                )}
-                <span className="font-mono text-[0.7rem] text-ink-faint">
-                  {p.stack.join(' · ')}
-                </span>
-              </p>
-            </article>
+            <OverviewRow
+              key={p.slug}
+              to={`/projects/${p.slug}`}
+              title={p.title}
+              meta={p.year}
+              blurb={p.oneLiner}
+            />
           ))}
         </div>
-
-        <div className="mt-10 border-t border-rule pt-6">
-          <p className="text-[0.85rem] text-ink-faint">More on GitHub:</p>
-          <ul className="mt-2 flex flex-col gap-1.5 text-[0.88rem]">
-            {moreProjects.map((p) => (
-              <li key={p.title}>
-                <a href={p.github} target="_blank" rel="noreferrer" className="prose-link">
-                  {p.title}
-                </a>{' '}
-                <span className="text-ink-soft">— {p.note}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p className="mt-4 px-0 text-[0.85rem] text-ink-faint">
+          More on{' '}
+          <a href={site.github} target="_blank" rel="noreferrer" className="prose-link">
+            GitHub
+          </a>
+          :{' '}
+          {moreProjects.map((p, i) => (
+            <span key={p.title}>
+              <a href={p.github} target="_blank" rel="noreferrer" className="prose-link">
+                {p.title}
+              </a>
+              {i < moreProjects.length - 1 ? ' · ' : ''}
+            </span>
+          ))}
+        </p>
       </section>
 
       {/* Education */}
-      <section className="border-t border-rule py-12">
+      <section className="border-t border-rule py-10">
         <SectionHeading id="education">Education</SectionHeading>
         <div className="flex flex-col gap-6">
           {education.map((edu) => (
@@ -174,7 +146,7 @@ function Home() {
       </section>
 
       {/* Skills */}
-      <section className="border-t border-rule py-12">
+      <section className="border-t border-rule py-10">
         <SectionHeading id="skills">Skills</SectionHeading>
         <dl className="flex flex-col gap-3">
           {skills.map((s) => (
@@ -187,7 +159,7 @@ function Home() {
       </section>
 
       {/* Contact */}
-      <section className="border-t border-rule py-12">
+      <section className="border-t border-rule py-10">
         <SectionHeading id="contact">Contact</SectionHeading>
         <p className="max-w-[34rem] text-ink-soft">
           The fastest way to reach me is email —{' '}
