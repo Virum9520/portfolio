@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '@fontsource/geist-sans';
 import App from './App';
 import './styles/globals.css';
 

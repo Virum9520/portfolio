@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100%;
+@theme {
+  --color-paper: #faf9f6;
+  --color-ink: #1c1a17;
+  --color-ink-soft: #52504b;
+  --color-ink-faint: #8a8680;
+  --color-rule: #e4e1da;
+  --color-accent: #9c4221;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
@@ -19,77 +18,37 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Geist Sans', 'Geist', sans-serif;
-  color: #f5f3ff;
-  background:
-    radial-gradient(55% 35% at 25% 78%, rgba(168, 85, 247, 0.28), transparent 72%),
-    radial-gradient(40% 28% at 90% 25%, rgba(139, 92, 246, 0.18), transparent 72%),
-    #02010a;
-  line-height: 1.6;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.shiny-number {
-  position: relative;
-  display: inline-block;
-  background: linear-gradient(
-    120deg,
-    rgba(249, 250, 251, 0.15),
-    #e5e7eb,
-    #d4d4d8,
-    #f9fafb
-  );
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow:
-    0 0 18px rgba(229, 231, 235, 0.7),
-    0 0 32px rgba(209, 213, 219, 0.55);
-  animation: shiny-sweep 3s ease-in-out infinite;
+::selection {
+  background: #f3d9c8;
 }
 
-@keyframes shiny-sweep {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.prose-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: #d9b49e;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 120ms ease;
 }
 
-.gradient-text {
-  background-image: linear-gradient(
-    120deg,
-    rgba(221, 214, 254, 0.9),
-    rgba(196, 181, 253, 0.95),
-    rgba(129, 140, 248, 0.95)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.prose-link:hover {
+  text-decoration-color: var(--color-accent);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Attempt to hide potential Spline attribution anchors if exposed in DOM */
-a[href*="spline.design"],
-a[href*="splinetool"] {
-  display: none !important;
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
 }
