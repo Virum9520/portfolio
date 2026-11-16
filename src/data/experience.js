@@ -1,7 +1,7 @@
 export const experience = [
   {
     id: 'dte-energy',
-    role: 'AI & Data Intern',
+    role: 'Software Development Intern',
     company: 'DTE Energy',
     location: 'Detroit, MI',
     dates: 'Jun 2026 – Present',
